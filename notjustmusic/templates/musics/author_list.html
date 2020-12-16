@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+   {% for author in authors %}
+  <div class="col">
+      <div class="card" style="width: 18rem;">
+        <img src="{{ author.picture.url }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ author.name }}</h5>
+        </div>
+      </div>
+  </div>
+    {% endfor %}
+</div>
+</body>
+{% endblock %}

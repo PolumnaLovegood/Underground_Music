@@ -1,16 +1,11 @@
 from django.urls import path
-
-
-from notjustmusic.users.views import (
-    user_detail_view,
-    user_redirect_view,
-    user_update_view,
-)
+from .views import AuthorList, AlbumList, MusicList, AlbumMusicList
 
 app_name = 'musics'
 
 urlpatterns = [
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("", AlbumList.as_view(), name="album_list"),
+    path("authors/", AuthorList.as_view(), name="author_list"),
+    path("musics/", MusicList.as_view(), name="music_list"),
+    path("musics/<int:pk>/", AlbumMusicList.as_view(), name="album_music_list"),
 ]

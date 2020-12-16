@@ -13,11 +13,9 @@
           <li class="list-group-item">{{ music.album }}</li>
           <li class="list-group-item">{{ music.author }}</li>
           <li class="list-group-item">{{ music.category }}</li>
-          <li class="list-group-item">
-            <audio controls preload="auto">
+          <li class="list-group-item"><audio controls preload="auto">
               <source src="{{ music.music.url }}" type="audio/mpeg">
-            </audio>
-          </li>
+          </audio></li>
         </ul>
       </div>
   </div>

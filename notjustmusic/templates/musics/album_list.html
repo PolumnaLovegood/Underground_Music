@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+   {% for album in albums %}
+  <div class="col">
+      <div class="card" style="width: 18rem;">
+        <a href="{% url 'musics:album_music_list' pk=album.pk %}"><img src="{{ album.picture.url }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ album.name }}</h5>
+        </div></a>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ album.data }}</li>
+          <li class="list-group-item">{{ album.author }}</li>
+        </ul>
+      </div>
+  </div>
+    {% endfor %}
+</div>
+</body>
+{% endblock %}
