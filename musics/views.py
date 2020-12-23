@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.urls.base import reverse_lazy
-from django.views.generic import ListView, DetailView
-from .models import Music, Category, Albums, Author
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+from .models import Music, Category, Albums, Author, Users
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -50,9 +53,37 @@ class AuthorList(ListView):
         return Author.objects.all()
 
 
+class MusicCreate(LoginRequiredMixin, CreateView):
+    model = Music
+    fields = ["name", "music", "author", "album", "category", "position"]
+    success_url = reverse_lazy("musics:music_list")
+
+
 class MusicDetail(DetailView):
     model = Music
     template_name = "musics/music_detail.html"
     context_object_name = "music"
+
+
+@login_required
+def favourite_song(request, pk):
+    song = get_object_or_404(Music, pk=pk)
+    user, created = Users.objects.get_or_create(user=request.user)
+    music = Music.objects.get(name=song)
+    if not user.favorite_music.filter(music=song).exists():
+        user.favorite_music.add(music)
+        user.save()
+        print(str(user.favorite_music))
+        print(str(song))
+        return redirect('musics:favorite_list')
+    else:
+        messages.info(request, 'Этот трек уже в ваших избранных!')
+        return redirect('musics:favorite_list')
+
+
+class FavoriteMusic(ListView):
+    model = Users
+    template_name = "musics/favorite_songs.html"
+    context_object_name = "favorite_list"
 
 

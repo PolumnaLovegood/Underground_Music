@@ -19,6 +19,7 @@
             </audio>
           </li>
         </ul>
+        <a href="{% url 'musics:like_song' pk=music.pk %}">Добавить в избранное</a>
       </div>
   </div>
     {% endfor %}
