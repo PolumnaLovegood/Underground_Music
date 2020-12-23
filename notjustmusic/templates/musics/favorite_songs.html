@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+   {% for music in favorite_list %}
+  <div class="col">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ music.favorite_music }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{ favorite_list }}</li>
+          <li class="list-group-item">{{ music.album }}</li>
+          <li class="list-group-item">{{ music.author }}</li>
+          <li class="list-group-item">{{ music.category }}</li>
+          <li class="list-group-item">
+            <audio controls preload="auto">
+              <source src="{{ music.music.url }}" type="audio/mpeg">
+            </audio>
+          </li>
+        </ul>
+      </div>
+  </div>
+    {% endfor %}
+</div>
+</body>
+{% endblock %}

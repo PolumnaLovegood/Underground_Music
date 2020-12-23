@@ -17,6 +17,7 @@
               <source src="{{ music.music.url }}" type="audio/mpeg">
           </audio></li>
         </ul>
+         <a href="{% url 'musics:like_song' pk=music.pk %}">Добавить в избранное</a>
       </div>
   </div>
     {% endfor %}
