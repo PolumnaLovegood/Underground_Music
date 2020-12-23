@@ -86,4 +86,5 @@ class FavoriteMusic(ListView):
     template_name = "musics/favorite_songs.html"
     context_object_name = "favorite_list"
 
-
+    def get_queryset(self):
+        return Users.objects.get(user=self.request.user)

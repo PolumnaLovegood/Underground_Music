@@ -1,26 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 <body>
-<div class="row row-cols-1 row-cols-md-3 g-4">
-   {% for music in musics %}
-  <div class="col">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{ music.name }}</h5>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{ music.position }}</li>
-          <li class="list-group-item">{{ music.album }}</li>
-          <li class="list-group-item">{{ music.author }}</li>
-          <li class="list-group-item">{{ music.category }}</li>
-          <li class="list-group-item"><audio controls preload="auto">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Play</th>
+      <th scope="col">Author</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+    {% for music in musics %}
+  <tbody>
+    <tr>
+      <td>{{ music.position }}</td>
+      <td>{{ music.name }}</td>
+      <td>
+        <audio controls preload="auto">
               <source src="{{ music.music.url }}" type="audio/mpeg">
-          </audio></li>
-        </ul>
-         <a href="{% url 'musics:like_song' pk=music.pk %}">Добавить в избранное</a>
-      </div>
-  </div>
+        </audio></td>
+      <td>{{ music.author }}</td>
+      <td><a href="{% url 'musics:like_song' pk=music.pk %}"><i class="fa fa-heart-o" style="font-size:24px"></i></a></td>
+    </tr>
+  </tbody>
     {% endfor %}
+  </table>
 </div>
 </body>
 {% endblock %}
