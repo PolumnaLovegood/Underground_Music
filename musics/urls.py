@@ -1,6 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
-from .views import AuthorList, AlbumList, MusicList, AlbumMusicList, MusicCreate, FavoriteMusic, favourite_song
+from .views import AuthorList, AlbumList, MusicList, AlbumMusicList, MusicCreate, FavoriteMusic, favourite_song, AuthorAlbumList
 
 app_name = 'musics'
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path("new/", MusicCreate.as_view(), name="music_form"),
     path("favorite_list/", FavoriteMusic.as_view(), name="favorite_list"),
     path("like/<int:pk>/", favourite_song, name="like_song"),
+    path("author_album/<int:pk>/", AuthorAlbumList.as_view(), name="authors_albums")
 ]

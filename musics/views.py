@@ -53,6 +53,16 @@ class AuthorList(ListView):
         return Author.objects.all()
 
 
+class AuthorAlbumList(ListView):
+    model = Albums
+    template_name = "musics/authors_albums.html"
+    context_object_name = "authors_albums"
+
+    def get_queryset(self):
+        self.author = get_object_or_404(Author, pk=self.kwargs['pk'])
+        return Albums.objects.filter(author=self.author)
+
+
 class MusicCreate(LoginRequiredMixin, CreateView):
     model = Music
     fields = ["name", "music", "author", "album", "category", "position"]
